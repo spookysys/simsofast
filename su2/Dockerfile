@@ -1,5 +1,5 @@
 FROM ubuntu:14.04
-# FROM debian:jessie
+# FROM buildpack-deps:jessie
 
 RUN apt-get update && apt-get install -y \
     wget bsdtar \
@@ -31,3 +31,4 @@ RUN apt-get update && apt-get install -y \
 RUN cd SU2* \
  && ./configure; make; make install
  
+WORKDIR /root
