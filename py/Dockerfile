@@ -1,10 +1,5 @@
 FROM continuumio/miniconda3
 
-# Dependent dockerfiles use this a lot
-RUN apt-get update -q --fix-missing \
-    && apt-get install -qy --no-install-recommends wget bsdtar \
-    && rm -rf /var/lib/apt/lists/*
-
 # Install conda and libs
 RUN apt-get update \
  && apt-get install -qy gmsh \
