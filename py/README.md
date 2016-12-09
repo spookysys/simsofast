@@ -2,6 +2,7 @@ SimSoFast Python
 ===========
 
 Python tools for CFD simulation and optimization
-* pythonocc - geometry generation
-* pygmsh - meshing
+* pythonocc - Geometry generation
+* pygmsh - Meshing
+* pyfoam - IO for OpenFOAM
 

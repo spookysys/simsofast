@@ -5,7 +5,7 @@ RUN apt-get update \
  && conda install -y numpy \
  && conda install -y -c dlr-sc pythonocc-core \
  && conda update -y pip \
- && pip install --no-cache-dir meshio pygmsh \
+ && pip install --no-cache-dir meshio pygmsh pyfoam \
  && conda clean -t \
  && rm -rf /var/lib/apt/lists/*
 
