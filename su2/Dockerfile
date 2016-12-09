@@ -1,5 +1,6 @@
 FROM ubuntu:14.04
 # FROM buildpack-deps:jessie
+# FROM spookysys/simsofast-py
 
 RUN apt-get update && apt-get install -y \
     wget bsdtar \
@@ -28,7 +29,7 @@ WORKDIR /tmp
 RUN wget -qO- https://github.com/su2code/SU2/archive/v4.3.0.zip | bsdtar -xvf-
 RUN apt-get update && apt-get install -y \
     automake build-essential libopenmpi-dev openmpi-bin
-RUN cd SU2* \
- && ./configure; make; make install
+# RUN cd SU2* \
+# && ./configure; make; make install
  
 WORKDIR /root
