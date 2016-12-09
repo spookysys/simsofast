@@ -27,7 +27,7 @@ RUN conda install -qy numpy scipy \
 # ENV PATH /opt/su2/bin:$PATH
 
 # Install SU2 from source
-WORKDIR /root
+WORKDIR /tmp
 RUN wget -qO- https://github.com/su2code/SU2/archive/v4.3.0.zip | bsdtar -xvf-
 RUN apt-get update -qq --fix-missing \
  && apt-get install -qy \
