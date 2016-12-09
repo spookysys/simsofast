@@ -1,6 +1,8 @@
 FROM ubuntu:14.04
 # FROM buildpack-deps:jessie
 # FROM spookysys/simsofast-py
+# FROM continuumio/miniconda3
+
 
 RUN apt-get update -q --fix-missing \
     && apt-get install -qy --no-install-recommends wget bsdtar \
@@ -8,7 +10,7 @@ RUN apt-get update -q --fix-missing \
 
 # Install Python
 WORKDIR /tmp
-RUN wget -qO tmp.sh https://repo.continuum.io/miniconda/Miniconda2-4.2.12-Linux-x86_64.sh \
+RUN wget --no-check-certificate -qO tmp.sh https://repo.continuum.io/miniconda/Miniconda2-4.2.12-Linux-x86_64.sh \
  && bash tmp.sh -b -p /opt/conda \
  && rm tmp.sh
 ENV PATH /opt/conda/bin:$PATH
