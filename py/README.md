@@ -1,6 +1,4 @@
-Python with geometry libraries
+PythonOCC on miniconda3
 ===========
 
-* Python3
-* Anaconda
-* PythonOCC
+Useful for generating geometry and studies
