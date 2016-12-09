@@ -4,8 +4,8 @@ FROM ubuntu:14.04
 # FROM continuumio/miniconda3
 
 
-RUN apt-get update -q --fix-missing \
-    && apt-get install -qy --no-install-recommends wget bsdtar \
+RUN apt-get update -qq --fix-missing \
+    && apt-get install -qqy --no-install-recommends wget bsdtar \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python
@@ -29,7 +29,7 @@ RUN conda install -qy numpy scipy \
 # Install SU2 from source
 WORKDIR /tmp
 RUN wget -qO- https://github.com/su2code/SU2/archive/v4.3.0.zip | bsdtar -xvf-
-RUN apt-get update -q --fix-missing \
+RUN apt-get update -qq --fix-missing \
  && apt-get install -qy \
     automake build-essential libopenmpi-dev openmpi-bin
 # RUN cd SU2* \
