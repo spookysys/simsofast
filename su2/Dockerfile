@@ -2,8 +2,8 @@ FROM ubuntu:14.04
 # FROM buildpack-deps:jessie
 # FROM spookysys/simsofast-py
 
-RUN apt-get update && apt-get install -qy \
-    wget bsdtar \
+RUN apt-get update -q --fix-missing \
+    && apt-get install -qy --no-install-recommends wget bsdtar \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python
@@ -27,7 +27,8 @@ RUN conda install -qy numpy scipy \
 # Install SU2 from source
 WORKDIR /tmp
 RUN wget -qO- https://github.com/su2code/SU2/archive/v4.3.0.zip | bsdtar -xvf-
-RUN apt-get update && apt-get install -qy \
+RUN apt-get update -q --fix-missing \
+ && apt-get install -qy \
     automake build-essential libopenmpi-dev openmpi-bin
 # RUN cd SU2* \
 # && ./configure; make; make install
