@@ -1,10 +1,15 @@
 FROM debian:stable-slim
 
-# RUN apt-get update && apt-get install -y --no-install-recommends \
-#         autoconf \
-#         automake \
-#         bzip2 \
-#         file \
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        python27 \
+        python35 \
+    && rm -rf /var/lib/apt/lists/*
+
+    # RUN apt-get update && apt-get install -y --no-install-recommends \
+    #     autoconf \
+    #     automake \
+    #     bzip2 \
+    #     file \
     #     g++ \
     #     gcc \
     #     imagemagick \
