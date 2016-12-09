@@ -5,12 +5,12 @@ FROM ubuntu:14.04
 
 
 RUN apt-get update -qq --fix-missing \
-    && apt-get install -qqy --no-install-recommends wget bsdtar \
+    && apt-get install -qqy --no-install-recommends ca-certificates wget bsdtar \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python
 WORKDIR /tmp
-RUN wget --no-check-certificate -qO tmp.sh https://repo.continuum.io/miniconda/Miniconda2-4.2.12-Linux-x86_64.sh \
+RUN wget -qO tmp.sh https://repo.continuum.io/miniconda/Miniconda2-4.2.12-Linux-x86_64.sh \
  && bash tmp.sh -b -p /opt/conda \
  && rm tmp.sh
 ENV PATH /opt/conda/bin:$PATH
