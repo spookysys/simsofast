@@ -62,14 +62,15 @@ RUN apt-get remove -qqy \
     automake build-essential libopenmpi-dev
 RUN apt-get autoremove -qqy
 RUN conda remove -qy swig
-RUN conda clean -t \
- && rm -rf /var/lib/apt/lists/* \
- && rm -rf /tmp/*
 
 ENV PATH $SU2_RUN:$PATH
 ENV PYTHONPATH $PYTHONPATH:$SU2_RUN
 
 WORKDIR /tmp/SU2/TestCases
 RUN python serial_regression.py
+
+RUN conda clean -t \
+ && rm -rf /var/lib/apt/lists/* \
+ && rm -rf /tmp/*
 
 WORKDIR /root
