@@ -21,7 +21,7 @@ RUN apt-get update -qq --fix-missing \
  && apt-get install -qqy --no-install-recommends \
     ca-certificates wget bsdtar \
     automake build-essential \
-    libopenmpi-dev openmpi-bin libopenmpi1.6 \
+    libopenmpi-dev openmpi-bin libopenmpi1.6 ssh \
     libopenblas-base liblapack3gf libopenblas-dev liblapack-dev liblapacke liblapacke-dev \
  && wget -qO tmp.sh https://repo.continuum.io/miniconda/Miniconda2-4.2.12-Linux-x86_64.sh && bash tmp.sh -b -p /opt/conda && rm tmp.sh \
  && export PATH=$CONDA_BIN:$PATH \
