@@ -46,11 +46,14 @@ RUN ./configure \
 RUN make -j `nproc`
 RUN make check
 RUN apt-get remove -qqy \
-    bsdtar libopenblas-dev liblapack-dev liblapacke-dev
+    bsdtar libopenblas-dev liblapack-dev liblapacke-dev \
+ && apt-get autoremove -qqy
 RUN conda uninstall swig
 RUN make check
 RUN make install
-RUN apt-get remove automake build-essential libopenmpi-dev \
+RUN apt-get remove -qqy \
+    automake build-essential libopenmpi-dev \
+ && apt-get autoremove -qqy \
  && conda clean -t \
  && rm -rf /var/lib/apt/lists/*
 
