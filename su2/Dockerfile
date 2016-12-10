@@ -45,15 +45,22 @@ RUN ./configure \
     --enable-PY_WRAPPER
 RUN make -j `nproc`
 RUN make check
+RUN make install
+
+
+WORKDIR /tmp
+RUN wget -qO- https://github.com/su2code/TestCases/archive/v4.3.0.zip | bsdtar -xvf-
+RUN cp -R TestCases/* $SU2_HOME/TestCases
+WORKDIR $SU2_HOME/TestCases 
+RUN python serial_regression.py
+
+# cleanup
 RUN apt-get remove -qqy \
     bsdtar liblapack-dev liblapacke-dev \
- && apt-get autoremove -qqy
+    apt-get autoremove -qqy \
+    automake build-essential libopenmpi-dev
+RUN apt-get autoremove -qqy
 RUN conda remove -qy swig
-RUN make check
-RUN make install
-RUN apt-get remove -qqy \
-    automake build-essential libopenmpi-dev \
- && apt-get autoremove -qqy \
  && conda clean -t \
  && rm -rf /var/lib/apt/lists/*
 
