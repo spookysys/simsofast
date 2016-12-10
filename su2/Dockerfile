@@ -35,9 +35,9 @@ RUN mkdir -p $SU2_HOME \
 RUN cd SU2 \
  && sed -ri -e 's|(TECIO_LIB\s=).*|\1|g' SU2_PY/pySU2/Makefile.* \
  && sed -ri -e 's|(PYTHON_INCLUDE\s=\s).*|\1-I/opt/conda/include/python2.7|g' SU2_PY/pySU2/Makefile.* \
- && sed -ri -e 's|(NUMPY_INCLUDE\s=\s).*|\1/opt/conda/lib/python2.7/site-packages/numpy/core/include|g' SU2_PY/pySU2/Makefile.*
- && cp -R ../TestCases/* TestCases
- && chmod a+x configure preconfigure.py
+ && sed -ri -e 's|(NUMPY_INCLUDE\s=\s).*|\1/opt/conda/lib/python2.7/site-packages/numpy/core/include|g' SU2_PY/pySU2/Makefile.* \
+ && cp -R ../TestCases/* TestCases \
+ && chmod ug+x configure preconfigure.py
 
 
 ENV PATH $CONDA_BIN:$PATH
@@ -66,32 +66,9 @@ RUN python serial_regression.py
 # RUN conda remove -qy swig
 #  && conda clean -t \
 #  && rm -rf /var/lib/apt/lists/*
+#  && rm -rf /tmp/*
 
 ENV PATH $SU2_RUN:$PATH
 ENV PYTHONPATH $PYTHONPATH:$SU2_RUN
- 
-# libopenblas-dev  has laplas lib
-
-# RUN wget -qO- https://github.com/su2code/SU2/archive/v4.3.0.zip | bsdtar -xvf- \
-#  && apt-get update -qq --fix-missing \
-#  && apt-get install -qy automake build-essential
-
-# superfast 
-# CXXFLAGS="-O0" --enable-CFD --disable-DOT --disable-MSH --disable-DEF --disable-SOL --disable-GEO
-
-# --enable-mpi --with-cc=/usr/bin/mpicc --with-cxx=/usr/bin/mpicxx
-# RUN apt-get install -qy libopenmpi-dev openmpi-bin
-
-# --with-LAPACK-lib=/usr/lib --with-LAPACK-include=/usr/include
-# RUN apt-get install -qy libopenblas-base liblapack3gf libopenblas-dev liblapack-dev liblapacke-dev
-
-# --with-Jsoncpp-include=/usr/include/jsoncpp --with-Jsoncpp-lib=/usr/lib/x86_64-linux-gnu
-# RUN apt-get install -qy libjsoncpp-dev \
-#  && ln -s /usr/lib/x86_64-linux-gnu/libjsoncpp.a /usr/lib/x86_64-linux-gnu/libjson.a
-
-# --enable-PY_WRAPPER
-# RUN conda install -qy swig
-
-# ./configure --prefix=/opt/su2 --enable-tecio CXXFLAGS="-I/usr/include/X11 -O0" --enable-CFD --disable-DOT --disable-MSH --disable-DEF --disable-SOL --disable-GEO
 
 WORKDIR /root
