@@ -35,7 +35,7 @@ RUN ./configure \
  && make -j `nproc` \
  && make check \
  && make install
-RUN sed -ri -e "s|(dest="partitions",\w*default=)2\b|\1`nproc`" SU2_PY/parallel*.py \
+RUN sed -ri -e "s|(dest=\"partitions\",\w*default=)2\b|\1`nproc`|g" SU2_PY/parallel*.py \
  && make check \
  && make install
 # RUN apt-get remove -qqy \
