@@ -33,6 +33,7 @@ RUN apt-get update -qq --fix-missing \
  && apt-get install -qy \
     automake build-essential libopenmpi-dev openmpi-bin
 RUN cd SU2* \
- && ./configure CXXFLAGS="-O3" --enable-mpi; make -j `nproc`; make install
+ && chmod a+x configure \
+ && ./configure CXXFLAGS="-O0" --enable-mpi --enable-PY_WRAPPER; make -j `nproc`; make install
  
 WORKDIR /root
