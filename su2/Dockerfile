@@ -27,14 +27,12 @@ RUN wget -q https://bootstrap.pypa.io/get-pip.py \
  && cp -R ../TestCases/* TestCases \
  && chmod ug+x configure preconfigure.py
 WORKDIR /tmp/SU2
-RUN apt-get install -qy swig3.0 \
- && apt-get remove -qy swig \
- && alias swig=swig3.0 \
- && ./configure \
+RUN ./configure \
     CXXFLAGS="-O2 -g" \
     --enable-mpi --with-cc=/usr/bin/mpicc --with-cxx=/usr/bin/mpicxx \
     --with-LAPACK-lib=/usr/lib --with-LAPACK-include=/usr/include \
     --enable-PY_WRAPPER \
+    --disable-tecio \
  && make -j `nproc` \
  && make check \
  && make install
