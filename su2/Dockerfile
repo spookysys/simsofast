@@ -12,7 +12,7 @@ RUN apt-get update -qq --fix-missing \
     python-dev \
     libopenmpi-dev openmpi-bin libopenmpi1.6 ssh \
     libopenblas-base liblapack3gf libopenblas-dev liblapack-dev liblapacke liblapacke-dev \
-    swig swig2.0 \
+    swig \
  && wget -q https://bootstrap.pypa.io/get-pip.py \
  && python get-pip.py --no-wheel
 RUN pip install -q numpy scipy mpi4py
@@ -37,7 +37,7 @@ RUN make check \
  && make install \
  && apt-get remove -qqy \
     bsdtar liblapack-dev liblapacke-dev \
-    automake build-essential \
+    automake build-essential swig \
  && apt-get autoremove -qqy
 RUN cd /tmp/SU2/TestCases \
  && python parallel_regression.py \
