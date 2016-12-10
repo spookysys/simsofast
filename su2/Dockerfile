@@ -62,7 +62,7 @@ RUN apt-get remove -qqy \
     automake build-essential libopenmpi-dev
 RUN apt-get autoremove -qqy
 RUN conda remove -qy swig
- && conda clean -t \
+RUN conda clean -t \
  && rm -rf /var/lib/apt/lists/*
  && rm -rf /tmp/*
 
