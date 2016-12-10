@@ -51,7 +51,8 @@ RUN make install
 WORKDIR /tmp
 RUN wget -qO- https://github.com/su2code/TestCases/archive/v4.3.0.zip | bsdtar -xvf-
 RUN apt-get install -qqy --no-install-recommends ssh
-RUN cd /opt/su2/TestCases && cp -R /tmp/TestCases*/* .
+RUN cp -R TestCases*/* $SU2_HOME/TestCases
+WORKDIR $SU2_HOME/TestCases
 RUN python serial_regression.py
 
 # # cleanup
