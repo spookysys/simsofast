@@ -22,6 +22,8 @@ RUN wget -qO- https://github.com/su2code/SU2/archive/v4.3.0.zip | bsdtar -xvf- &
  && mkdir -p $SU2_HOME \
  && cp -R SU2/* $SU2_HOME
 RUN cd /tmp/SU2 \
+ && sed -ri -e 's|(PYTHON_INCLUDE\s=\s).*|\1-I/usr/include/python2.7|g' SU2_PY/pySU2/Makefile.* \
+ && sed -ri -e 's|(NUMPY_INCLUDE\s=\s).*|\1/usr/local/lib/python2.7/dist-packages/numpy/core/include|g' SU2_PY/pySU2/Makefile.* \
  && sed -ri -e 's|(TECIO_LIB\s=).*|\1|g' SU2_PY/pySU2/Makefile.* \
  && cp -R ../TestCases/* TestCases \
  && chmod ug+x configure preconfigure.py \
@@ -42,8 +44,7 @@ RUN cd /tmp/SU2 \
  && rm -rf /var/lib/apt/lists/* \
  && rm -rf /tmp/*
 
-# && sed -ri -e 's|(PYTHON_INCLUDE\s=\s).*|\1-I/opt/conda/include/python2.7|g' SU2_PY/pySU2/Makefile.* \
-# && sed -ri -e 's|(NUMPY_INCLUDE\s=\s).*|\1/opt/conda/lib/python2.7/site-packages/numpy/core/include|g' SU2_PY/pySU2/Makefile.* \
+
 
 ENV PATH $SU2_RUN:$PATH
 ENV PYTHONPATH $PYTHONPATH:$SU2_RUN
