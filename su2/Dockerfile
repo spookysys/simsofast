@@ -46,13 +46,13 @@ RUN ./configure \
 RUN make -j `nproc`
 RUN make check
 RUN apt-get remove -qqy \
-    bsdtar liblapack-dev liblapacke-dev libopenmpi-dev \
+    bsdtar liblapack-dev liblapacke-dev \
  && apt-get autoremove -qqy
 RUN conda remove -qy swig
 RUN make check
 RUN make install
 RUN apt-get remove -qqy \
-    automake build-essential \
+    automake build-essential libopenmpi-dev \
  && apt-get autoremove -qqy \
  && conda clean -t \
  && rm -rf /var/lib/apt/lists/*
