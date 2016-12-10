@@ -32,7 +32,7 @@ RUN wget -qO- https://github.com/su2code/SU2/archive/v4.3.0.zip | bsdtar -xvf-
 RUN apt-get update -qq --fix-missing \
  && apt-get install -qy \
     automake build-essential libopenmpi-dev openmpi-bin
-# RUN cd SU2* \
-# && ./configure; make; make install
+RUN cd SU2* \
+ && ./configure CXXFLAGS="-O3" --enable-mpi; make -j `nproc`; make install
  
 WORKDIR /root
