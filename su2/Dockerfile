@@ -2,16 +2,6 @@ FROM ubuntu:14.04
 # FROM buildpack-deps:jessie
 # FROM spookysys/simsofast-py
 
-
-# Install SU2 binary version (Note: no libs)
-# WORKDIR /tmp
-# COPY su2-4.3.0-ubuntu14.04-gcc.tgz ./tmp.tgz
-# RUN tar xvfz tmp.tgz \
-#  && rm tmp.tgz \
-#  && mv su2* su2 \
-#  && mv su2 /opt
-# ENV PATH /opt/su2/bin:$PATH
-
 ENV SU2_RUN /usr/local/bin
 ENV SU2_HOME /opt/su2
 ENV CONDA_BIN /opt/conda/bin
@@ -26,51 +16,39 @@ RUN apt-get update -qq --fix-missing \
  && wget -qO tmp.sh https://repo.continuum.io/miniconda/Miniconda2-4.2.12-Linux-x86_64.sh && bash tmp.sh -b -p /opt/conda && rm tmp.sh \
  && export PATH=$CONDA_BIN:$PATH \
  && conda install -qy \
+    mpi4py \
     numpy scipy \
-    swig
-RUN wget -qO- https://github.com/su2code/SU2/archive/v4.3.0.zip | bsdtar -xvf- && mv SU2* SU2
-RUN wget -qO- https://github.com/su2code/TestCases/archive/v4.3.0.zip | bsdtar -xvf- && mv TestCases* TestCases
-RUN mkdir -p $SU2_HOME \
- && cp -R SU2/* $SU2_HOME
-RUN cd SU2 \
+    swig \
+ && wget -qO- https://github.com/su2code/SU2/archive/v4.3.0.zip | bsdtar -xvf- && mv SU2* SU2 \
+ && wget -qO- https://github.com/su2code/TestCases/archive/v4.3.0.zip | bsdtar -xvf- && mv TestCases* TestCases \
+ && mkdir -p $SU2_HOME \
+ && cp -R SU2/* $SU2_HOME \
+ && cd /tmp/SU2 \
  && sed -ri -e 's|(TECIO_LIB\s=).*|\1|g' SU2_PY/pySU2/Makefile.* \
  && sed -ri -e 's|(PYTHON_INCLUDE\s=\s).*|\1-I/opt/conda/include/python2.7|g' SU2_PY/pySU2/Makefile.* \
  && sed -ri -e 's|(NUMPY_INCLUDE\s=\s).*|\1/opt/conda/lib/python2.7/site-packages/numpy/core/include|g' SU2_PY/pySU2/Makefile.* \
  && cp -R ../TestCases/* TestCases \
- && chmod ug+x configure preconfigure.py
-
-
-ENV PATH $CONDA_BIN:$PATH
-
-WORKDIR /tmp/SU2
-RUN ./configure \
+ && chmod ug+x configure preconfigure.py \
+ && ./configure \
     CXXFLAGS="-O2 -g" \
     --enable-mpi --with-cc=/usr/bin/mpicc --with-cxx=/usr/bin/mpicxx \
     --with-LAPACK-lib=/usr/lib --with-LAPACK-include=/usr/include \
-    --enable-PY_WRAPPER
-RUN make -j `nproc`
-RUN make check
-RUN make install
-
-WORKDIR /tmp/SU2/TestCases
-# RUN python serial_regression.py
-
-# # cleanup
-WORKDIR /tmp
-RUN apt-get remove -qqy \
+    --enable-PY_WRAPPER \
+ && make -j `nproc` \
+ && make check \
+ && make install \
+ && apt-get remove -qqy \
     bsdtar liblapack-dev liblapacke-dev \
-    automake build-essential libopenmpi-dev
-RUN apt-get autoremove -qqy
-RUN conda remove -qy swig
+    automake build-essential libopenmpi-dev \
+ && apt-get autoremove -qqy \
+ && conda remove -qy swig \
+ && cd /tmp/SU2/TestCases \
+ && python parallel_regression.py \
+ && conda clean -t \
+ && rm -rf /var/lib/apt/lists/* \
+ && rm -rf /tmp/*
 
 ENV PATH $SU2_RUN:$PATH
 ENV PYTHONPATH $PYTHONPATH:$SU2_RUN
-
-WORKDIR /tmp/SU2/TestCases
-RUN python serial_regression.py
-
-RUN conda clean -t \
- && rm -rf /var/lib/apt/lists/* \
- && rm -rf /tmp/*
 
 WORKDIR /root
