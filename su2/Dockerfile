@@ -59,7 +59,6 @@ WORKDIR /tmp/SU2/TestCases
 WORKDIR /tmp
 RUN apt-get remove -qqy \
     bsdtar liblapack-dev liblapacke-dev \
-    apt-get autoremove -qqy \
     automake build-essential libopenmpi-dev
 RUN apt-get autoremove -qqy
 RUN conda remove -qy swig
