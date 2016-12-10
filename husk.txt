@@ -1,0 +1,4 @@
+
+# Create cluster
+gcloud compute instance-groups managed create "omph" --template "omph" --size 1
+
