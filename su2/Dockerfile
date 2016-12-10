@@ -12,7 +12,7 @@ RUN apt-get update -qq --fix-missing \
     python-dev \
     libopenmpi-dev openmpi-bin libopenmpi1.6 ssh \
     libopenblas-base liblapack3gf libopenblas-dev liblapack-dev liblapacke liblapacke-dev \
-    swig swig3.0 \
+    swig3.0 \
  && wget -q https://bootstrap.pypa.io/get-pip.py \
  && python get-pip.py --no-wheel \
  && pip install -q numpy scipy mpi4py \
@@ -25,8 +25,9 @@ RUN apt-get update -qq --fix-missing \
  && sed -ri -e 's|(NUMPY_INCLUDE\s=\s).*|\1/usr/local/lib/python2.7/dist-packages/numpy/core/include|g' SU2_PY/pySU2/Makefile.* \
  && sed -ri -e 's|(TECIO_LIB\s=).*|\1|g' SU2_PY/pySU2/Makefile.* \
  && cp -R ../TestCases/* TestCases \
- && chmod ug+x configure preconfigure.py \
- && ./configure \
+ && chmod ug+x configure preconfigure.py
+WORKDIR /tmp/SU2
+RUN ./configure \
     CXXFLAGS="-O2 -g" \
     --enable-mpi --with-cc=/usr/bin/mpicc --with-cxx=/usr/bin/mpicxx \
     --with-LAPACK-lib=/usr/lib --with-LAPACK-include=/usr/include \
@@ -36,7 +37,7 @@ RUN apt-get update -qq --fix-missing \
  && make install
 # RUN apt-get remove -qqy \
 #     bsdtar liblapack-dev liblapacke-dev \
-#     automake build-essential swig swig3.0 \
+#     automake build-essential swig3.0 \
 #  && apt-get autoremove -qqy
 RUN cd /tmp/SU2/TestCases \
  && python parallel_regression.py \
