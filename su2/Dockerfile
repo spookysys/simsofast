@@ -12,8 +12,8 @@ RUN apt-get update -qq --fix-missing \
     python-dev \
     libopenmpi-dev openmpi-bin libopenmpi1.6 ssh \
     libopenblas-base liblapack3gf libopenblas-dev liblapack-dev liblapacke liblapacke-dev \
-    swig3.0 \
- && wget -q https://bootstrap.pypa.io/get-pip.py \
+    swig3.0
+RUN wget -q https://bootstrap.pypa.io/get-pip.py \
  && python get-pip.py --no-wheel \
  && pip install -q numpy scipy mpi4py \
  && wget -qO- https://github.com/su2code/SU2/archive/v4.3.0.zip | bsdtar -xvf- && mv SU2* SU2 \
