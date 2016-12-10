@@ -21,7 +21,7 @@ RUN apt-get update -qq --fix-missing \
  && apt-get install -qqy --no-install-recommends \
     ca-certificates wget bsdtar \
     automake build-essential \
-    libopenmpi-dev openmpi-bin \
+    libopenmpi-dev openmpi-bin libopenmpi1.6 \
     libopenblas-base liblapack3gf libopenblas-dev liblapack-dev liblapacke liblapacke-dev \
  && wget -qO tmp.sh https://repo.continuum.io/miniconda/Miniconda2-4.2.12-Linux-x86_64.sh && bash tmp.sh -b -p /opt/conda && rm tmp.sh \
  && export PATH=$CONDA_BIN:$PATH \
@@ -46,13 +46,13 @@ RUN ./configure \
 RUN make -j `nproc`
 RUN make check
 RUN apt-get remove -qqy \
-    bsdtar libopenblas-dev liblapack-dev liblapacke-dev \
+    bsdtar liblapack-dev liblapacke-dev libopenmpi-dev \
  && apt-get autoremove -qqy
-RUN conda uninstall swig
+RUN conda remove -qy swig
 RUN make check
 RUN make install
 RUN apt-get remove -qqy \
-    automake build-essential libopenmpi-dev \
+    automake build-essential \
  && apt-get autoremove -qqy \
  && conda clean -t \
  && rm -rf /var/lib/apt/lists/*
@@ -60,6 +60,8 @@ RUN apt-get remove -qqy \
 ENV PATH $SU2_RUN:$PATH
 ENV PYTHONPATH $PYTHONPATH:$SU2_RUN
  
+# libopenblas-dev  has laplas lib
+
 # RUN wget -qO- https://github.com/su2code/SU2/archive/v4.3.0.zip | bsdtar -xvf- \
 #  && apt-get update -qq --fix-missing \
 #  && apt-get install -qy automake build-essential
