@@ -32,8 +32,8 @@ RUN cd /tmp/SU2 \
     --enable-mpi --with-cc=/usr/bin/mpicc --with-cxx=/usr/bin/mpicxx \
     --with-LAPACK-lib=/usr/lib --with-LAPACK-include=/usr/include \
     --enable-PY_WRAPPER \
- && make -j `nproc` \
- && make check \
+ && make -j `nproc` 
+RUN make check \
  && make install \
  && apt-get remove -qqy \
     bsdtar liblapack-dev liblapacke-dev \
