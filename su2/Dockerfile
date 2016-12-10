@@ -21,23 +21,28 @@ RUN apt-get update -qq --fix-missing \
  && apt-get install -qqy --no-install-recommends \
     ca-certificates wget bsdtar \
     automake build-essential \
-    libopenmpi-dev openmpi-bin libopenmpi1.6 \
+    libopenmpi-dev openmpi-bin libopenmpi1.6 ssh \
     libopenblas-base liblapack3gf libopenblas-dev liblapack-dev liblapacke liblapacke-dev \
  && wget -qO tmp.sh https://repo.continuum.io/miniconda/Miniconda2-4.2.12-Linux-x86_64.sh && bash tmp.sh -b -p /opt/conda && rm tmp.sh \
  && export PATH=$CONDA_BIN:$PATH \
  && conda install -qy \
     numpy scipy \
     swig
-RUN wget -qO- https://github.com/su2code/SU2/archive/v4.3.0.zip | bsdtar -xvf- \
- && mv SU* su2 && mv su2 /opt \
- && cd $SU2_HOME && chmod a+x configure preconfigure.py
+RUN wget -qO- https://github.com/su2code/SU2/archive/v4.3.0.zip | bsdtar -xvf- && mv TestCases* TestCases
+RUN wget -qO- https://github.com/su2code/TestCases/archive/v4.3.0.zip | bsdtar -xvf- && mv SU2* SU2
+RUN mkdir -p $SU2_HOME \
+ && cp -R SU2/* $SU2_HOME
+RUN cd SU2 \
+ && sed -ri -e 's|(TECIO_LIB\s=).*|\1|g' SU2_PY/pySU2/Makefile.* \
+ && sed -ri -e 's|(PYTHON_INCLUDE\s=\s).*|\1-I/opt/conda/include/python2.7|g' SU2_PY/pySU2/Makefile.* \
+ && sed -ri -e 's|(NUMPY_INCLUDE\s=\s).*|\1/opt/conda/lib/python2.7/site-packages/numpy/core/include|g' SU2_PY/pySU2/Makefile.*
+ && cp -R ../TestCases/* TestCases
+ && chmod a+x configure preconfigure.py
+
 
 ENV PATH $CONDA_BIN:$PATH
 
-WORKDIR $SU2_HOME
-RUN sed -ri -e 's|(TECIO_LIB\s=).*|\1|g' SU2_PY/pySU2/Makefile.* \
- && sed -ri -e 's|(PYTHON_INCLUDE\s=\s).*|\1-I/opt/conda/include/python2.7|g' SU2_PY/pySU2/Makefile.* \
- && sed -ri -e 's|(NUMPY_INCLUDE\s=\s).*|\1/opt/conda/lib/python2.7/site-packages/numpy/core/include|g' SU2_PY/pySU2/Makefile.*
+WORKDIR /tmp/SU2
 RUN ./configure \
     CXXFLAGS="-O2 -g" \
     --enable-mpi --with-cc=/usr/bin/mpicc --with-cxx=/usr/bin/mpicxx \
@@ -47,15 +52,12 @@ RUN make -j `nproc`
 RUN make check
 RUN make install
 
-
-WORKDIR /tmp
-RUN wget -qO- https://github.com/su2code/TestCases/archive/v4.3.0.zip | bsdtar -xvf-
-RUN apt-get install -qqy --no-install-recommends ssh
-RUN cp -R TestCases*/* $SU2_HOME/TestCases
-WORKDIR $SU2_HOME/TestCases
+WORKDIR /tmp/TestCases
 RUN python serial_regression.py
 
 # # cleanup
+# WORKDIR $SU2_HOME
+# RUN make distclean
 # RUN apt-get remove -qqy \
 #     bsdtar liblapack-dev liblapacke-dev \
 #     apt-get autoremove -qqy \
