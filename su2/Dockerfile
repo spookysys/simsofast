@@ -51,17 +51,18 @@ RUN make install
 WORKDIR /tmp
 RUN wget -qO- https://github.com/su2code/TestCases/archive/v4.3.0.zip | bsdtar -xvf-
 RUN cd TestCases*
+RUN cp -R $SU_HOME/TestCases/* .
 RUN python serial_regression.py
 
-# cleanup
-RUN apt-get remove -qqy \
-    bsdtar liblapack-dev liblapacke-dev \
-    apt-get autoremove -qqy \
-    automake build-essential libopenmpi-dev
-RUN apt-get autoremove -qqy
-RUN conda remove -qy swig
- && conda clean -t \
- && rm -rf /var/lib/apt/lists/*
+# # cleanup
+# RUN apt-get remove -qqy \
+#     bsdtar liblapack-dev liblapacke-dev \
+#     apt-get autoremove -qqy \
+#     automake build-essential libopenmpi-dev
+# RUN apt-get autoremove -qqy
+# RUN conda remove -qy swig
+#  && conda clean -t \
+#  && rm -rf /var/lib/apt/lists/*
 
 ENV PATH $SU2_RUN:$PATH
 ENV PYTHONPATH $PYTHONPATH:$SU2_RUN
