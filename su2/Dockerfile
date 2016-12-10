@@ -12,9 +12,9 @@ RUN apt-get update -qq --fix-missing \
     automake build-essential \
     python python-pip \
     libopenmpi-dev openmpi-bin libopenmpi1.6 ssh \
-    libopenblas-base liblapack3gf libopenblas-dev liblapack-dev liblapacke liblapacke-dev \
- && pip install -q --upgrade pip \
- && pip install -q --no-cache-dir numpy scipy swig mpi4py \
+    libopenblas-base liblapack3gf libopenblas-dev liblapack-dev liblapacke liblapacke-dev
+RUN pip install -q --upgrade pip \
+ && pip install -q numpy scipy swig mpi4py \
  && wget -qO- https://github.com/su2code/SU2/archive/v4.3.0.zip | bsdtar -xvf- && mv SU2* SU2 \
  && wget -qO- https://github.com/su2code/TestCases/archive/v4.3.0.zip | bsdtar -xvf- && mv TestCases* TestCases \
  && mkdir -p $SU2_HOME \
