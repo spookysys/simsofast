@@ -15,7 +15,7 @@ RUN apt-get update -qq --fix-missing \
     libopenblas-base liblapack3gf libopenblas-dev liblapack-dev liblapacke liblapacke-dev \
     swig swig2.0 \
  && wget -q https://bootstrap.pypa.io/get-pip.py \
- && python get-pip.py --no-setuptools --no-wheel
+ && python get-pip.py --no-wheel
 RUN pip install -q numpy scipy mpi4py
 RUN wget -qO- https://github.com/su2code/SU2/archive/v4.3.0.zip | bsdtar -xvf- && mv SU2* SU2 \
  && wget -qO- https://github.com/su2code/TestCases/archive/v4.3.0.zip | bsdtar -xvf- && mv TestCases* TestCases \
