@@ -33,12 +33,12 @@ RUN apt-get update -qq --fix-missing \
     --enable-PY_WRAPPER \
  && make -j `nproc` \
  && make check \
- && make install \
- && apt-get remove -qqy \
-    bsdtar liblapack-dev liblapacke-dev \
-    automake build-essential swig \
- && apt-get autoremove -qqy
- && cd /tmp/SU2/TestCases \
+ && make install
+# RUN apt-get remove -qqy \
+#     bsdtar liblapack-dev liblapacke-dev \
+#     automake build-essential swig \
+#  && apt-get autoremove -qqy
+RUN cd /tmp/SU2/TestCases \
  && python parallel_regression.py \
  && rm -rf /var/lib/apt/lists/* \
  && rm -rf /tmp/*
