@@ -10,7 +10,7 @@ RUN apt-get update -qq --fix-missing \
  && apt-get install -qqy --no-install-recommends \
     ca-certificates wget bsdtar \
     automake build-essential \
-    python \
+    python-dev \
     libopenmpi-dev openmpi-bin libopenmpi1.6 ssh \
     libopenblas-base liblapack3gf libopenblas-dev liblapack-dev liblapacke liblapacke-dev
 RUN wget -q https://bootstrap.pypa.io/get-pip.py
