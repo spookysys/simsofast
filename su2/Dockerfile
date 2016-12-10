@@ -12,7 +12,7 @@ RUN apt-get update -qq --fix-missing \
     python-dev \
     libopenmpi-dev openmpi-bin libopenmpi1.6 ssh \
     libopenblas-base liblapack3gf libopenblas-dev liblapack-dev liblapacke liblapacke-dev \
-    swig3.0
+    swig
 RUN wget -q https://bootstrap.pypa.io/get-pip.py \
  && python get-pip.py --no-wheel \
  && pip install -q numpy scipy mpi4py \
@@ -27,8 +27,7 @@ RUN wget -q https://bootstrap.pypa.io/get-pip.py \
  && cp -R ../TestCases/* TestCases \
  && chmod ug+x configure preconfigure.py
 WORKDIR /tmp/SU2
-RUN ln -s /usr/bin/swig3.0 /usr/local/bin/swig \
-    ./configure \
+RUN ./configure \
     CXXFLAGS="-O2 -g" \
     --enable-mpi --with-cc=/usr/bin/mpicc --with-cxx=/usr/bin/mpicxx \
     --with-LAPACK-lib=/usr/lib --with-LAPACK-include=/usr/include \
