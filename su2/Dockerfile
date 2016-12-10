@@ -52,7 +52,7 @@ RUN make -j `nproc`
 RUN make check
 RUN make install
 
-WORKDIR /tmp/TestCases
+WORKDIR /tmp/SU2/TestCases
 RUN python serial_regression.py
 
 # # cleanup
