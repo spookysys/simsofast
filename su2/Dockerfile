@@ -35,7 +35,7 @@ RUN apt-get update -qq --fix-missing \
 ENV PATH $CONDA_BIN:$PATH
 
 WORKDIR $SU2_HOME
-RUN sed -ri -e 's|^(\s*enabletecio=)yes\b|\1no|g' configure \
+RUN sed -ri -e 's|(TECIO_LIB\s=).*|\1|g' SU2_PY/pySU2/Makefile.* \
  && sed -ri -e 's|(PYTHON_INCLUDE\s=\s).*|\1-I/opt/conda/include/python2.7|g' SU2_PY/pySU2/Makefile.* \
  && sed -ri -e 's|(NUMPY_INCLUDE\s=\s).*|\1/opt/conda/lib/python2.7/site-packages/numpy/core/include|g' SU2_PY/pySU2/Makefile.*
 RUN ./configure \
