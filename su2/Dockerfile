@@ -63,7 +63,7 @@ RUN apt-get remove -qqy \
 RUN apt-get autoremove -qqy
 RUN conda remove -qy swig
 RUN conda clean -t \
- && rm -rf /var/lib/apt/lists/*
+ && rm -rf /var/lib/apt/lists/* \
  && rm -rf /tmp/*
 
 ENV PATH $SU2_RUN:$PATH
