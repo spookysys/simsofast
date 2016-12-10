@@ -32,7 +32,7 @@ RUN apt-get update -qq --fix-missing \
  && make install \
  && apt-get remove -qqy \
     bsdtar liblapack-dev liblapacke-dev \
-    automake build-essential libopenmpi-dev \
+    automake build-essential \
  && apt-get autoremove -qqy \
  && cd /tmp/SU2/TestCases \
  && python parallel_regression.py \
