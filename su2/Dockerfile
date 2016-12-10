@@ -12,8 +12,8 @@ FROM ubuntu:14.04
 #  && mv su2 /opt
 # ENV PATH /opt/su2/bin:$PATH
 
-ENV SU2_RUN /opt/su2/bin
-ENV SU2_HOME /opt/su2/home
+ENV SU2_RUN /usr/local/bin
+ENV SU2_HOME /opt/su2
 ENV CONDA_BIN /opt/conda/bin
 
 WORKDIR /tmp
@@ -27,9 +27,9 @@ RUN apt-get update -qq --fix-missing \
  && export PATH=$CONDA_BIN:$PATH \
  && conda install -qy \
     numpy scipy \
-    swig \
- && wget -qO- https://github.com/su2code/SU2/archive/v4.3.0.zip | bsdtar -xvf- \
- && mkdir -p $SU2_HOME && mv SU*/* $SU2_HOME && rm -r SU* \
+    swig
+RUN wget -qO- https://github.com/su2code/SU2/archive/v4.3.0.zip | bsdtar -xvf- \
+ && mv SU* su2 && mv su2 /opt \
  && cd $SU2_HOME && chmod a+x configure preconfigure.py
 
 ENV PATH $CONDA_BIN:$PATH
