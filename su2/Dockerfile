@@ -28,8 +28,8 @@ RUN apt-get update -qq --fix-missing \
  && conda install -qy \
     numpy scipy \
     swig
-RUN wget -qO- https://github.com/su2code/SU2/archive/v4.3.0.zip | bsdtar -xvf- && mv TestCases* TestCases
-RUN wget -qO- https://github.com/su2code/TestCases/archive/v4.3.0.zip | bsdtar -xvf- && mv SU2* SU2
+RUN wget -qO- https://github.com/su2code/SU2/archive/v4.3.0.zip | bsdtar -xvf- && mv SU2* SU2
+RUN wget -qO- https://github.com/su2code/TestCases/archive/v4.3.0.zip | bsdtar -xvf- && mv TestCases* TestCases
 RUN mkdir -p $SU2_HOME \
  && cp -R SU2/* $SU2_HOME
 RUN cd SU2 \
