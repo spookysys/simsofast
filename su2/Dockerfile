@@ -53,22 +53,24 @@ RUN make check
 RUN make install
 
 WORKDIR /tmp/SU2/TestCases
-RUN python serial_regression.py
+# RUN python serial_regression.py
 
 # # cleanup
-# WORKDIR $SU2_HOME
-# RUN make distclean
-# RUN apt-get remove -qqy \
-#     bsdtar liblapack-dev liblapacke-dev \
-#     apt-get autoremove -qqy \
-#     automake build-essential libopenmpi-dev
-# RUN apt-get autoremove -qqy
-# RUN conda remove -qy swig
-#  && conda clean -t \
-#  && rm -rf /var/lib/apt/lists/*
-#  && rm -rf /tmp/*
+WORKDIR /tmp
+RUN apt-get remove -qqy \
+    bsdtar liblapack-dev liblapacke-dev \
+    apt-get autoremove -qqy \
+    automake build-essential libopenmpi-dev
+RUN apt-get autoremove -qqy
+RUN conda remove -qy swig
+ && conda clean -t \
+ && rm -rf /var/lib/apt/lists/*
+ && rm -rf /tmp/*
 
 ENV PATH $SU2_RUN:$PATH
 ENV PYTHONPATH $PYTHONPATH:$SU2_RUN
+
+WORKDIR /tmp/SU2/TestCases
+RUN python serial_regression.py
 
 WORKDIR /root
