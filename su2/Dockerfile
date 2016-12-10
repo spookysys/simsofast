@@ -38,7 +38,7 @@ RUN make check \
  && apt-get remove -qqy \
     bsdtar liblapack-dev liblapacke-dev \
     automake build-essential \
- && apt-get autoremove -qqy \
+ && apt-get autoremove -qqy
 RUN cd /tmp/SU2/TestCases \
  && python parallel_regression.py \
  && rm -rf /var/lib/apt/lists/* \
