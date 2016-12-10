@@ -6,13 +6,14 @@ ENV SU2_RUN /usr/local/bin
 ENV SU2_HOME /opt/su2
 
 WORKDIR /tmp
-RUN apt-get update -qq --fix-missing \
+RUN echo deb http://ftp.debian.org/debian jessie-backports main >> /etc/apt/sources.list \
+ && apt-get update -qq --fix-missing \
  && apt-get install -qqy --no-install-recommends \
     ca-certificates wget bsdtar \
     automake build-essential \
-    python python-pip \
     libopenmpi-dev openmpi-bin libopenmpi1.6 ssh \
     libopenblas-base liblapack3gf libopenblas-dev liblapack-dev liblapacke liblapacke-dev
+RUN apt-get -t jessie-backports install python
 RUN pip install -q numpy scipy swig mpi4py \
  && wget -qO- https://github.com/su2code/SU2/archive/v4.3.0.zip | bsdtar -xvf- && mv SU2* SU2 \
  && wget -qO- https://github.com/su2code/TestCases/archive/v4.3.0.zip | bsdtar -xvf- && mv TestCases* TestCases \
