@@ -1,5 +1,5 @@
 # FROM ubuntu:14.04
-FROM buildpack-deps:jessie
+FROM buildpack-deps:jessie-curl
 
 ENV SU2_RUN /usr/local/bin
 ENV SU2_HOME /opt/su2
@@ -7,12 +7,13 @@ ENV SU2_HOME /opt/su2
 WORKDIR /tmp
 RUN apt-get update -qq --fix-missing \
  && apt-get install -qqy --no-install-recommends \
-    ca-certificates wget bsdtar \
     automake build-essential \
-    python-dev \
-    libopenmpi-dev openmpi-bin libopenmpi1.6 ssh \
-    libopenblas-base liblapack3gf libopenblas-dev liblapack-dev liblapacke liblapacke-dev \
-    swig \
+    bsdtar swig \
+    openmpi-bin libopenmpi1.6 \
+    libopenmpi-dev \
+    libopenblas-base liblapack3gf liblapacke \
+    liblapack-dev liblapacke-dev libopenblas-dev \
+    python-dev ssh \
  && wget -q https://bootstrap.pypa.io/get-pip.py \
  && python get-pip.py --no-wheel \
  && pip install -q numpy scipy mpi4py \
@@ -36,10 +37,10 @@ RUN apt-get update -qq --fix-missing \
  && make check \
  && make install \
  && apt-get remove -qqy \
-    bsdtar swig automake \
-    liblapack-dev liblapacke-dev \
-    libopenblas-dev \
-    build-essential  \
+    automake build-essential \
+    bsdtar swig \
+    liblapack-dev liblapacke-dev libopenblas-dev \
+    libopenmpi-dev \
  && apt-get autoremove -qqy \
  && apt-get purge -qy \
  && cd /tmp/SU2/TestCases \
