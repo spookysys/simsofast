@@ -9,4 +9,4 @@ RUN apt-get update -qq --fix-missing \
  && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /root
-CMD ["python3"]
+ENTRYPOINT "python3"

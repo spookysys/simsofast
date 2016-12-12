@@ -9,4 +9,4 @@ RUN conda install -qy \
  && conda clean -t
  
 WORKDIR /root
-CMD ["python3"]
+ENTRYPOINT "python3"

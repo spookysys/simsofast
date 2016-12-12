@@ -5,4 +5,4 @@ RUN conda install -qy -c dlr-sc \
  && conda clean -t
 
 WORKDIR /root
-CMD ["python3"]
+ENTRYPOINT "python3"
