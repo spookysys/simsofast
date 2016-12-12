@@ -1,5 +1,6 @@
 FROM buildpack-deps:jessie-curl
 
+ARG RUN_REGRESSION
 ENV SU2_RUN /usr/local/bin
 ENV SU2_HOME /opt/su2
 
@@ -43,7 +44,7 @@ RUN apt-get update -qq --fix-missing \
  && apt-get autoremove -qqy \
  && apt-get purge -qy \
  && cd /tmp/SU2/TestCases \
- && python parallel_regression.py \
+ && if [ -z "$RUN_REGRESSION" ] ; then ; else python parallel_regression.py fi \
  && rm -rf /var/lib/apt/lists/* \
  && rm -rf /tmp/*
 
