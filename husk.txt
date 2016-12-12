@@ -1,6 +1,0 @@
-
-# Create cluster
-gcloud compute instance-groups managed create "omph" --template "omph" --size 1
-
-# mpi and docker
-https://raw.githubusercontent.com/oweidner/docker.openmpi/master/Dockerfile
