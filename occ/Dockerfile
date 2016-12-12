@@ -1,4 +1,4 @@
-FROM py
+FROM simsofast/py
 
 # Install conda and libs
 RUN conda install -qy -c dlr-sc \

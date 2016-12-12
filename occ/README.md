@@ -2,6 +2,6 @@
 
 Contains
 * PythonOCC - www.pythonocc.org
-* Everything from py image
+* Everything from simsofast/py
 
 

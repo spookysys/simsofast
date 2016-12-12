@@ -3,4 +3,4 @@
 Contains
 * gmsh
 * pygmsh
-* everything from py image
+* everything from simsofast/py
