@@ -1,4 +1,4 @@
-FROM simsofast/gmsh
+FROM gmsh
 
 # Install conda and libs
 RUN conda install -qy \

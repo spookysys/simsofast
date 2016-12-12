@@ -4,6 +4,6 @@ Contains
 * calculix (TODO)
 * pycalculix
 * matplotlib
-* Everything from simsofast/gmsh
+* everything from gmsh image
 
 NOT YET OPERATIONAL

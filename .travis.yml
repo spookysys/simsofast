@@ -1,0 +1,12 @@
+language: python
+sudo: required
+services:
+  - docker
+install:
+script: 
+    docker build py -t py
+    docker build occ -t occ
+    # docker build gmsh -t gmsh
+    # docker build calculix -t calculix
+    # docker build su -t su
+    
