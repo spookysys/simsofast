@@ -46,7 +46,7 @@ RUN apt-get update -qq --fix-missing \
  && else \
  &&   cd /tmp \
  &&   wget -qO- https://github.com/su2code/TestCases/archive/v4.3.0.zip | bsdtar -xvf- && mv TestCases* TestCases \
- &&   cp -R /tmp/TestCases/* tmp/SU2/TestCases \ 
+ &&   cp -R /tmp/TestCases/* /tmp/SU2/TestCases \ 
  &&   cd /tmp/SU2/TestCases \
  &&   python parallel_regression.py \
  && fi \
