@@ -1,4 +1,3 @@
-# FROM ubuntu:14.04
 FROM buildpack-deps:jessie-curl
 
 ENV SU2_RUN /usr/local/bin

@@ -1,4 +1,4 @@
-# SimSoFast SU2
+# SU2 with py wrappers
 
 Contains
 * SU2

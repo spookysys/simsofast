@@ -1,4 +1,4 @@
-# SimSoFast Python environment
+# Python environment
 
 Contains
 * miniconda3

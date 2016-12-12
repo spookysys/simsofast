@@ -1,4 +1,4 @@
-# SimSoFast GMSH
+# GMSH with py library
 
 Contains
 * gmsh

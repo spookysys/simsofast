@@ -1,4 +1,4 @@
-# SimSoFast PythonOCC
+# OpenCascade with py wrappers
 
 Contains
 * PythonOCC - www.pythonocc.org
