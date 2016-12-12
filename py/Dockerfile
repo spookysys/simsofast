@@ -1,6 +1,5 @@
 FROM continuumio/miniconda3
 
-# Install conda and libs
 RUN apt-get update -qq --fix-missing \
  && conda update -qy pip \
  && apt-get install -qy --no-install-recommends \
