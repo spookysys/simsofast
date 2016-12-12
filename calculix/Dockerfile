@@ -1,16 +1,19 @@
-FROM continuumio/miniconda3
+FROM spookysys/simsofast-py
 
 # Install conda and libs
 RUN apt-get update -qq --fix-missing \
- && conda update -qy pip \
  && apt-get install -qy --no-install-recommends \
     ca-certificates \
+    gmsh \
+ && conda update -qy pip \
  && conda install -qy \
-    numpy scipy \
+    matplotlib \
  && pip install -q --no-cache-dir \
-    meshio \
+    pycalculix \
  && conda clean -t \
  && rm -rf /var/lib/apt/lists/*
+
+# TODO: Calculix
 
 WORKDIR /root
 CMD ["python3"]

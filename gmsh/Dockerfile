@@ -1,14 +1,13 @@
-FROM continuumio/miniconda3
+FROM spookysys/simsofast-py
 
 # Install conda and libs
 RUN apt-get update -qq --fix-missing \
- && conda update -qy pip \
  && apt-get install -qy --no-install-recommends \
-    ca-certificates \
+    gmsh \
  && conda install -qy \
-    numpy scipy \
+    matplotlib \
  && pip install -q --no-cache-dir \
-    meshio \
+    meshio pygmsh pycalculix \
  && conda clean -t \
  && rm -rf /var/lib/apt/lists/*
 

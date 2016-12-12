@@ -1,7 +1,8 @@
-# SU2 w/ python wrappers
+# SimSoFast SU2
 
-SU2 with most important features enabled
-* parallelism
+SU2 with enabled
+* MPI (libopenmpi)
+* LAPACK (libopenblas)
 * python wrappers
 
-Python is standard 2.7 from debian
+The Python in this image is standard 2.7 from debian jessie

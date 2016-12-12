@@ -1,10 +1,7 @@
-SimSoFast Python
-===========
-
-Python toolchain with libs aimed at geometry processing. 
+# SimSoFast Python environment
 
 Contains
-* miniconda3 - Python3 toolchain
-* pythonocc - Geometry generation
-* pygmsh - Meshing (Gmsh)
-* pyfoam - OpenFOAM IO
+* miniconda3
+* numpy
+* scipy
+* meshio
