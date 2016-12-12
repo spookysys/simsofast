@@ -42,8 +42,7 @@ RUN apt-get update -qq --fix-missing \
  && apt-get autoremove -qqy \
  && apt-get purge -qy \
  && rm -rf /var/lib/apt/lists/* \
- && if [ -z "$RUN_REGRESSION" ] \
- && else \
+ && if [ -z "$RUN_REGRESSION" ] && then && else \
  &&   cd /tmp \
  &&   wget -qO- https://github.com/su2code/TestCases/archive/v4.3.0.zip | bsdtar -xvf- && mv TestCases* TestCases \
  &&   cp -R /tmp/TestCases/* /tmp/SU2/TestCases \ 
