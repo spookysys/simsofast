@@ -2,6 +2,5 @@
 
 Contains
 * miniconda3
-* numpy
-* scipy
+* numpy scipy
 * meshio

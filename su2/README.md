@@ -1,8 +1,12 @@
 # SimSoFast SU2
 
-SU2 with enabled
+Contains
+* SU2
+* Python2.7
+
+SU2 compiled with
 * MPI (libopenmpi)
 * LAPACK (libopenblas)
-* python wrappers
+* Python Wrappers
 
-The Python in this image is standard 2.7 from debian jessie
+

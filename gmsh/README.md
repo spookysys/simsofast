@@ -3,4 +3,4 @@
 Contains
 * gmsh
 * pygmsh
-* pycalculix (for its gmsh wrapper)
+* Everything from simsofast-py
