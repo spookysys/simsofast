@@ -1,4 +1,4 @@
-FROM spookysys/simsofast-gmsh
+FROM simsofast/gmsh
 
 # Install conda and libs
 RUN conda install -qy \

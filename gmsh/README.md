@@ -3,4 +3,4 @@
 Contains
 * gmsh
 * pygmsh
-* Everything from simsofast-py
+* Everything from simsofast/py

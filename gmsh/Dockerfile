@@ -1,4 +1,4 @@
-FROM spookysys/simsofast-py
+FROM simsofast/py
 
 # Install conda and libs
 RUN apt-get update -qq --fix-missing \

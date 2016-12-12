@@ -4,4 +4,4 @@ Contains
 * calculix
 * pycalculix
 * matplotlib
-* Everything from simsofast-gmsh
+* Everything from simsofast/gmsh
