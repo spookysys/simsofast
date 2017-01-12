@@ -1,13 +1,12 @@
+# Install SU2
 
-if [ -z "$RUN_REGRESSION" ]; then
+if [ -z "$RUN_REGRESSION" ]; then 
     echo Regression tests disabled
-fi 
-
-if [ -z "$RUN_REGRESSION" ]; then true; else
+else
     echo Regression tests enabled
-fi 
+fi
 
-
+# Install dependencies
 apt-get update -qq --fix-missing 
 apt-get install -qqy --no-install-recommends \
     automake build-essential \
@@ -16,11 +15,15 @@ apt-get install -qqy --no-install-recommends \
     libopenmpi-dev \
     libopenblas-base liblapack3gf liblapacke \
     liblapack-dev liblapacke-dev libopenblas-dev \
-    python-dev ssh 
-wget -q https://bootstrap.pypa.io/get-pip.py 
-python get-pip.py --no-wheel 
-pip install -q numpy scipy mpi4py 
-wget -qO- https://github.com/su2code/SU2/archive/v4.3.0.zip | bsdtar -xvf-mv SU2* SU2 
+    ssh python-dev
+
+# Download and untar
+wget -qO- https://github.com/su2code/SU2/archive/v4.3.0.zip | bsdtar -xvf- 
+mv SU2* SU2 
+
+# Install numpy temporarily, as SU2 compilation requires the headers
+pip install numpy
+
 mkdir -p $SU2_HOME 
 cp -R SU2/* $SU2_HOME 
 cd /tmp/SU2 
@@ -37,30 +40,25 @@ chmod ug+x configure preconfigure.py
 make -j `nproc` 
 make check 
 make install 
-apt-get remove -qqy \
+apt-get apt-get purge --auto-remove -qqy \
     automake build-essential \
     bsdtar swig \
     liblapack-dev liblapacke-dev libopenblas-dev \
     libopenmpi-dev 
-apt-get autoremove -qqy 
-apt-get purge -qy 
 rm -rf /var/lib/apt/lists/* 
 if [ -z "$RUN_REGRESSION" ]; then true; else  
     cd /tmp
-    wget -qO- https://github.com/su2code/TestCases/archive/v4.3.0.zip | bsdtar -xvf-mv TestCases* TestCases
+    wget -qO- https://github.com/su2code/TestCases/archive/v4.3.0.zip | bsdtar -xvf-
+    mv TestCases* TestCases
     cp -R /tmp/TestCases/* /tmp/SU2/TestCases 
     cd /tmp/SU2/TestCases
     python parallel_regression.py 
 fi 
 rm -rf /tmp/*
 
+# Uninstall numpy, we just needed it temporarily
+pip uninstall -qy numpy
 
- 
-# RUN sed -ri -e "s|^import SU2|import SU2, multiprocessing|g" SU2_PY/parallel*.py 
-# sed -ri -e "s|(dest=\"partitions\",\s*default=)2\b|\1multiprocessing\.cpu_count\(\)|g" SU2_PY/parallel*.py 
-# make check 
-# make install
- 
-# miniconda2: (ditched because too hard to get python and mpi to cooperate
-#sed -ri -e 's|(PYTHON_INCLUDE\s=\s).*|\1-I/opt/conda/include/python2.7|g' SU2_PY/pySU2/Makefile.* 
-#sed -ri -e 's|(NUMPY_INCLUDE\s=\s).*|\1/opt/conda/lib/python2.7/site-packages/numpy/core/include|g' SU2_PY/pySU2/Makefile.* \
+# apt-get cleanup
+apt-get purge --auto-remove -qqy
+rm -rf /var/lib/apt/lists/*
