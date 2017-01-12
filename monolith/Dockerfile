@@ -33,11 +33,10 @@ ENV PYTHONPATH $PYTHONPATH:$SU2_RUN
 COPY install_anaconda3.sh /tmp
 RUN sh install_anaconda3.sh
 
-# Create virtualenv for SU2 python2-wrappers
+# Create virtualenv for SU2 python wrappers
 RUN mkvirtualenv su2 \
  && workon su2 \
  && pip install -q numpy scipy mpi4py \
  && deactivate
-
 
 WORKDIR /root
