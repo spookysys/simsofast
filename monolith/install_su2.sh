@@ -1,4 +1,4 @@
-# Install SU2
+#!/bin/bash
 
 if [ -z "$RUN_REGRESSION" ]; then 
     echo Regression tests disabled
@@ -21,14 +21,18 @@ apt-get install -qqy --no-install-recommends \
 wget -qO- https://github.com/su2code/SU2/archive/v4.3.0.zip | bsdtar -xvf- 
 mv SU2* SU2 
 
-# Install numpy temporarily, as SU2 compilation requires the headers
-pip install numpy
+# Create environment for SU2
+conda create -qqy --name su2 python=2.7 numpy scipy mpi4py
 
+# Activate environment
+source activate su2
+
+# Configure and build SU2
 mkdir -p $SU2_HOME 
 cp -R SU2/* $SU2_HOME 
 cd /tmp/SU2 
-sed -ri -e 's|(PYTHON_INCLUDE\s=\s).*|\1-I/usr/include/python2.7|g' SU2_PY/pySU2/Makefile.* 
-sed -ri -e 's|(NUMPY_INCLUDE\s=\s).*|\1/usr/local/lib/python2.7/dist-packages/numpy/core/include|g' SU2_PY/pySU2/Makefile.* 
+sed -ri -e 's|(PYTHON_INCLUDE\s=\s).*|\1-I$CONDA_PREFIX/include/python2.7|g' SU2_PY/pySU2/Makefile.* 
+sed -ri -e 's|(NUMPY_INCLUDE\s=\s).*|\1$CONDA_PREFIX/lib/python2.7/site-packages/numpy/core/include|g' SU2_PY/pySU2/Makefile.* 
 sed -ri -e 's|(TECIO_LIB\s=).*|\1|g' SU2_PY/pySU2/Makefile.* 
 chmod ug+x configure preconfigure.py 
 ./configure \
@@ -40,12 +44,15 @@ chmod ug+x configure preconfigure.py
 make -j `nproc` 
 make check 
 make install 
+
+# Uninstall packages needed for build
 apt-get apt-get purge --auto-remove -qqy \
     automake build-essential \
     bsdtar swig \
     liblapack-dev liblapacke-dev libopenblas-dev \
     libopenmpi-dev 
-rm -rf /var/lib/apt/lists/* 
+
+# Run regression
 if [ -z "$RUN_REGRESSION" ]; then true; else  
     cd /tmp
     wget -qO- https://github.com/su2code/TestCases/archive/v4.3.0.zip | bsdtar -xvf-
@@ -54,11 +61,14 @@ if [ -z "$RUN_REGRESSION" ]; then true; else
     cd /tmp/SU2/TestCases
     python parallel_regression.py 
 fi 
-rm -rf /tmp/*
 
-# Uninstall numpy, we just needed it temporarily
-pip uninstall -qy numpy
+# leave environment
+source deactivate
+
+# Delete source code
+rm -rf /tmp/SU2
 
 # apt-get cleanup
 apt-get purge --auto-remove -qqy
 rm -rf /var/lib/apt/lists/*
+
