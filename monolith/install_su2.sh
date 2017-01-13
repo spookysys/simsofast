@@ -21,10 +21,8 @@ apt-get install -qqy --no-install-recommends \
 wget -qO- https://github.com/su2code/SU2/archive/v4.3.0.zip | bsdtar -xvf- 
 mv SU2* SU2 
 
-# Create environment for SU2
+# Create and activate environment for SU2
 conda create -qqy --name su2 python=2.7 numpy scipy mpi4py
-
-# Activate environment
 source activate su2
 
 # Configure and build SU2
@@ -62,9 +60,6 @@ if [ -z "$RUN_REGRESSION" ]; then true; else
     python parallel_regression.py 
 fi 
 
-# leave environment
-source deactivate
-
 # Delete source code
 rm -rf /tmp/SU2
 
@@ -72,3 +67,8 @@ rm -rf /tmp/SU2
 apt-get purge --auto-remove -qqy
 rm -rf /var/lib/apt/lists/*
 
+# conda cleanup
+conda clean -t
+
+# deactivate enviromnent
+source deactivate
