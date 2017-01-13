@@ -25,6 +25,11 @@ COPY install_su2.sh /tmp
 RUN bash install_su2.sh \
  && rm install_su2.sh
 
+# Install calculix
+COPY install_calculix.sh /tmp
+RUN bash install_calculix.sh \
+ && rm install_calculix.sh
+ 
 # Install pyt3 toolchain
 COPY install_pyt3.sh /tmp
 RUN bash install_pyt3.sh \
