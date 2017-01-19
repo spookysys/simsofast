@@ -20,6 +20,7 @@ conda install -qy -c dlr-sc pythonocc-core
 
 # Install pip packages
 pip install -q --no-cache-dir \
+	petsc4py \
 	meshio \
 	pygmsh \
 	pycalculix \

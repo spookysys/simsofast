@@ -10,7 +10,7 @@ Available Python Modules
 * fipy - Partial Differential Equation Solver
 * meshio - Mesh Format I/O Library
 
-Installed Conda Environments
+Conda Environments
 * su2 - SU2 on Python2.7
 * pyt3 - Everything else in Python3
 
