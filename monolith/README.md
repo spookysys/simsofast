@@ -1,8 +1,8 @@
 # SimSoFast Monolith
 
 Available Python Modules
-* PythonOCC - Geometry Generation
-* SU2 w/Wrappers - Fluid Dynamics Simulation
+* PythonOCC - Geometry Generation w/OpenCascade
+* SU2 w/Wrappers - Fluid Simulation
 * (py)CalculiX - Structural Simulation
 * PyGmsh - Meshing for Simulation
 * CoolProp - Thermodynamic Properties
