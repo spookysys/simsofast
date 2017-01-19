@@ -5,13 +5,27 @@
 apt-get update -qq --fix-missing
 apt-get install -qy --no-install-recommends gmsh
 
-# Create and activate environment
-conda create -qqy --name pyt3 python=3 numpy scipy mpi4py matplotlib
+# Create environment
+conda create -qqy --name pyt3 python=3 \
+	numpy \
+	scipy \
+	mpi4py \
+	matplotlib
+
+# Activate environment
 source activate pyt3
 
-# Install misc
+# Install conda packages from different channels
 conda install -qy -c dlr-sc pythonocc-core
-pip install -q --no-cache-dir meshio pygmsh pycalculix fipy
+
+# Install pip packages
+pip install -q --no-cache-dir \
+	meshio \
+	pygmsh \
+	pycalculix \
+	fipy \
+	CoolProp \
+	openmdao
 
 # apt-get cleanup
 apt-get purge --auto-remove -qqy

@@ -1,19 +1,19 @@
 # SimSoFast Monolith
 
-Software
-* CalculiX
-* SU2
-
-Geometry Processing in Python
+Available Python Modules
 * PythonOCC - Geometry Generation
-* PyGmsh - Meshing
-* CalculiX, SU2 bindings
-* libs; meshio, fipy
+* SU2 w/Wrappers - Fluid Dynamics Simulation
+* (py)CalculiX - Structural Simulation
+* PyGmsh - Meshing for Simulation
+* CoolProp - Thermodynamic Properties
+* OpenMDAO - Cross-Discipline Optimization
+* fipy - Partial Differential Equation Solver
+* meshio - Mesh Format I/O Library
 
-Environments
-* su2 - SU2 in python2.7
-* pyt3 - everything else
+Installed Conda Environments
+* su2 - SU2 on Python2.7
+* pyt3 - Everything else in Python3
 
-Parallelism
+SU2 is compiled for parallelism using
 * MPI (libopenmpi)
 * LAPACK (libopenblas)
