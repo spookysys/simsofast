@@ -1,15 +1,15 @@
-FROM simsofast/monolith:step1
+FROM simsofast/monolith-step1
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 WORKDIR /tmp
 
-# Install SU2 (with its own py2 enviroment)
-ARG RUN_REGRESSION
-ENV SU2_RUN /usr/local/bin
-ENV SU2_HOME /opt/su2
-ENV PATH $PATH:$SU2_RUN
-ENV PYTHONPATH $PYTHONPATH:$SU2_RUN
-COPY install_su2.sh /tmp
-RUN bash install_su2.sh \
- && rm install_su2.sh
+# Install calculix
+COPY install_calculix.sh /tmp
+RUN bash install_calculix.sh \
+ && rm install_calculix.sh
+
+# Install pyt3 toolchain
+COPY install_pyt3.sh /tmp
+RUN bash install_pyt3.sh \
+ && rm install_pyt3.sh
 
 WORKDIR /root
