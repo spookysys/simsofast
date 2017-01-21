@@ -10,7 +10,7 @@ RUN apt-get update -qq --fix-missing \
  && rm -rf /var/lib/apt/lists/*
 
 # Install miniconda
-COPY ../install_miniconda.sh /tmp
+COPY install_miniconda.sh /tmp
 RUN bash install_miniconda.sh \
  && rm install_miniconda.sh
 ENV PATH /opt/conda/bin:$PATH
