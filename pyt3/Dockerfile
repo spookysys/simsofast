@@ -1,4 +1,4 @@
-FROM simsofast/monolith-step1
+FROM simsofast/base
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 WORKDIR /tmp
 
