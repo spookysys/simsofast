@@ -48,7 +48,7 @@ make check
 make install 
 
 # Uninstall packages needed for build
-apt-get apt-get purge --auto-remove -qqy \
+apt-get purge --auto-remove -qqy \
     automake build-essential \
     bsdtar swig \
     liblapack-dev liblapacke-dev libopenblas-dev \
