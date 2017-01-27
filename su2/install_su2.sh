@@ -18,7 +18,7 @@ apt-get install -qqy --no-install-recommends \
 # Download and untar
 wget -q https://github.com/su2code/SU2/archive/v$VERSION.tar.gz
 tar xvf v$VERSION.tar.gz
-rm xvf v$VERSION.tar.gz
+rm v$VERSION.tar.gz
 mv SU2* SU2 
 
 # Create and activate environment for SU2
