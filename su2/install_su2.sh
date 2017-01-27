@@ -18,6 +18,7 @@ apt-get install -qqy --no-install-recommends \
 # Download and untar
 wget -q https://github.com/su2code/SU2/archive/v$VERSION.tar.gz
 tar xvf v$VERSION.tar.gz
+rm xvf v$VERSION.tar.gz
 mv SU2* SU2 
 
 # Create and activate environment for SU2
@@ -57,10 +58,13 @@ if [ -z "$RUN_REGRESSION" ]; then true; else
     cd /tmp
     wget -q https://github.com/su2code/TestCases/archive/v$VERSION.tar.gz
     tar xvf v$VERSION.tar.gz
+    rm v$VERSION.tar.gz
     mv TestCases* TestCases
     cp -R /tmp/TestCases/* /tmp/SU2/TestCases 
     cd /tmp/SU2/TestCases
     python parallel_regression.py 
+    cd /tmp
+    rm -r /tmp/TestCases
 fi 
 
 # Delete source code
