@@ -20,6 +20,7 @@ RUN apt-get update -qq --fix-missing \
  && apt-get install -qqy --no-install-recommends \
     libopenblas-base liblapack3gf liblapacke \
     openmpi-bin libopenmpi1.6 \
+    ssh \
  && apt-get purge --auto-remove -qqy \
  && rm -rf /var/lib/apt/lists/*
  
