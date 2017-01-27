@@ -31,8 +31,8 @@ mkdir -p $SU2_HOME
 cp -R SU2/* $SU2_HOME 
 cd /tmp/SU2 
 sed -ri -e 's|(PYTHON_INCLUDE\s=\s)|\1-I${CONDA_PREFIX}/include/python2.7 |g' SU2_PY/pySU2/Makefile.*
-sed -ri -e 's|(NUMPY_INCLUDE\s=\s)|\1${CONDA_PREFIX}/lib/python2.7/site-packages/numpy/core/include |g' SU2_PY/pySU2/Makefile.*
-sed -ri -e 's|(MPI4PY_INCLUDE\s=\s)|\1${CONDA_PREFIX}/lib/python2.7/site-packages/mpi4py/include |g' SU2_PY/pySU2/Makefile.*
+sed -ri -e 's|(NUMPY_INCLUDE\s=\s)|\1${CONDA_PREFIX}/lib/python2.7/site-packages/numpy/core/include -I|g' SU2_PY/pySU2/Makefile.*
+sed -ri -e 's|(MPI4PY_INCLUDE\s=\s)|\1${CONDA_PREFIX}/lib/python2.7/site-packages/mpi4py/include -I|g' SU2_PY/pySU2/Makefile.*
 sed -ri -e 's|(-lpython2.7)|\1 -L${CONDA_PREFIX}/lib|g' SU2_PY/pySU2/Makefile.*
 sed -ri -e 's|(TECIO_LIB\s=).*|\1|g' SU2_PY/pySU2/Makefile.*
 chmod ug+x configure preconfigure.py 
