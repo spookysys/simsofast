@@ -11,14 +11,13 @@ fi
 # Install dependencies
 apt-get update -qq --fix-missing 
 apt-get install -qqy --no-install-recommends \
-    automake build-essential \
-    bsdtar swig \
+    automake build-essential swig \
     libopenmpi-dev \
-    liblapack-dev liblapacke-dev libopenblas-dev \
-    ssh
+    liblapack-dev liblapacke-dev libopenblas-dev
 
 # Download and untar
-wget -qO- https://github.com/su2code/SU2/archive/v$VERSION.tar.gz | bsdtar -xvf- 
+wget -q https://github.com/su2code/SU2/archive/v$VERSION.tar.gz
+tar xvf v$VERSION.tar.gz
 mv SU2* SU2 
 
 # Create and activate environment for SU2
@@ -49,15 +48,15 @@ make install
 
 # Uninstall packages needed for build
 apt-get purge --auto-remove -qqy \
-    automake build-essential \
-    bsdtar swig \
+    automake build-essential swig \
     liblapack-dev liblapacke-dev libopenblas-dev \
     libopenmpi-dev 
 
 # Run regression
 if [ -z "$RUN_REGRESSION" ]; then true; else  
     cd /tmp
-    wget -qO- https://github.com/su2code/TestCases/archive/v$VERSION.zip | bsdtar -xvf-
+    wget -q https://github.com/su2code/TestCases/archive/v$VERSION.tar.gz
+    tar xvf v$VERSION.tar.gz
     mv TestCases* TestCases
     cp -R /tmp/TestCases/* /tmp/SU2/TestCases 
     cd /tmp/SU2/TestCases
