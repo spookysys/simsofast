@@ -28,16 +28,9 @@ sudo apt-get update -q
 sudo apt-get -qy install docker-engine
 sudo docker run hello-world
 
-# Python (not really needed)
-echo export PATH=/opt/conda/bin:\$PATH | sudo tee -a /etc/profile.d/conda.sh
-echo export PATH=/opt/conda/bin:\$PATH >> ~/.bashrc
-export PATH=/opt/conda/bin:$PATH
-sudo apt-get install -qy libglib2.0-0 libxext6 libsm6 libxrender1
-wget -q https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh
-sudo bash miniconda.sh -b -p /opt/conda
-rm miniconda.sh
-
-# Start some docker containers
+# Pull some containers
+sudo docker pull simsofast/pyt3
+sudo docker pull simsofast/su2
 # sudo docker run -itd --rm -v /mnt/shared:/mnt/shared --name pyt3 simsofast/pyt3
 # sudo docker run -itd --rm -v /mnt/shared:/mnt/shared --name su2 simsofast/su2
 
