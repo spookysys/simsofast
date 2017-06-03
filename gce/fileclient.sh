@@ -1,9 +1,10 @@
+#!/bin/bash
+
 # Dependencies
 sudo apt-get update -q
 sudo apt-get install -qy \
 	nano htop less locate xauth \
-	ca-certificates curl wget bzip2 curl
-
+	ca-certificates curl wget bzip2 unzip curl
 
 # Mount shared disk
 sudo apt-get install -qy sshfs nfs-common autofs
@@ -13,7 +14,6 @@ echo fileserver:/mnt/shared /mnt/shared nfs rw 0 0 | sudo tee -a /etc/fstab
 echo /- /etc/auto.mount | sudo tee -a /etc/auto.master
 echo "/mnt/shared -fstype=nfs,rw fileserver:/mnt/shared" | sudo tee -a /etc/auto.mount
 systemctl restart autofs
-
 
 # Misc
 sudo updatedb

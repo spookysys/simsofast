@@ -12,4 +12,7 @@ COPY install_pyt3.sh /tmp
 RUN bash install_pyt3.sh \
  && rm install_pyt3.sh
 
+# Activate the environment
+RUN source activate pyt3
+
 WORKDIR /root

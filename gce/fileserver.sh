@@ -1,9 +1,10 @@
+#!/bin/bash
+
 # Dependencies
 sudo apt-get update -q
 sudo apt-get install -qy \
 	nano htop less locate xauth \
-	ca-certificates curl wget bzip2 curl
-
+	ca-certificates curl wget bzip2 unzip curl
 
 # Mount shared disk
 sudo mkfs.ext4 -F -E lazy_itable_init=0,lazy_journal_init=0,discard /dev/disk/by-id/google-shared
@@ -22,7 +23,6 @@ sudo apt-get install -qy nfs-kernel-server
 echo "/mnt/shared 10.132.0.0/20(rw,async,no_root_squash)" | sudo tee -a /etc/exports
 cat /etc/exports
 sudo systemctl restart nfs-kernel-server
-
 
 # Misc
 sudo updatedb
