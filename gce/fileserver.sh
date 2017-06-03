@@ -1,4 +1,4 @@
-# Basics
+# Dependencies
 sudo apt-get update -q
 sudo apt-get install -qy \
 	nano htop less locate xauth \
@@ -13,6 +13,9 @@ cat /etc/fstab
 sudo mount /mnt/shared
 sudo chmod a+rxw /mnt/shared
 
+# TODO: Derive IP range
+# https://cloud.google.com/compute/docs/vpc/
+# ip addr show
 
 # Serve shared disk
 sudo apt-get install -qy nfs-kernel-server
@@ -23,4 +26,4 @@ sudo systemctl restart nfs-kernel-server
 
 # Misc
 sudo updatedb
-ip addr show
+
