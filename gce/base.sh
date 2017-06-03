@@ -1,3 +1,5 @@
+# Set up /mnt/share
+source fileclient.sh
 
 # Basics
 sudo apt-get update -q
@@ -21,7 +23,7 @@ sudo docker run hello-world
 # Python
 echo export PATH=/opt/conda/bin:\$PATH | sudo tee -a /etc/profile.d/conda.sh
 echo export PATH=/opt/conda/bin:\$PATH >> ~/.bashrc
-export PATH=/opt/conda/bin:\$PATH
+export PATH=/opt/conda/bin:$PATH
 sudo apt-get install -qy libglib2.0-0 libxext6 libsm6 libxrender1
 wget -q https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh
 sudo bash miniconda.sh -b -p /opt/conda
