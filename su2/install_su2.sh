@@ -12,7 +12,7 @@ fi
 apt-get update -qq --fix-missing 
 apt-get install -qqy --no-install-recommends \
     automake build-essential swig \
-    libopenmpi-dev \
+    libcr-dev \
     liblapack-dev liblapacke-dev libopenblas-dev
 
 # Download and untar
@@ -49,8 +49,8 @@ make install
 # Uninstall packages needed for build
 apt-get purge --auto-remove -qqy \
     automake build-essential swig \
-    liblapack-dev liblapacke-dev libopenblas-dev \
-    libopenmpi-dev 
+    libcr-dev \
+    liblapack-dev liblapacke-dev libopenblas-dev
 
 # Run regression
 if [ -z "$RUN_REGRESSION" ]; then true; else  
