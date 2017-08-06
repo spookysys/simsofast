@@ -15,15 +15,16 @@ apt-get install -qqy --no-install-recommends \
     libcr-dev \
     liblapack-dev liblapacke-dev libopenblas-dev
 
+# Create and activate environment for SU2
+conda install -qqy mpi4py
+conda install -qqy numpy scipy
+echo "CONDA_PREFIX: $CONDA_PREFIX"
+
 # Download and untar
 wget -q https://github.com/su2code/SU2/archive/v$VERSION.tar.gz
 tar xvf v$VERSION.tar.gz
 rm v$VERSION.tar.gz
 mv SU2* SU2 
-
-# Create and activate environment for SU2
-conda install -qqy numpy scipy mpi4py
-echo "CONDA_PREFIX: $CONDA_PREFIX"
 
 # Configure and build SU2
 mkdir -p $SU2_HOME 
@@ -38,7 +39,7 @@ chmod ug+x configure preconfigure.py
 ./configure \
     CXXFLAGS="-O2 -g" \
     --srcdir=$SU2_HOME \
-    --enable-mpi --with-cc=/usr/bin/mpicc --with-cxx=/usr/bin/mpicxx \
+    --enable-mpi --with-cc=/opt/conda/bin/mpicc --with-cxx=/opt/conda/bin/mpicxx \
     --with-LAPACK-lib=/usr/lib --with-LAPACK-include=/usr/include \
     --enable-PY_WRAPPER \
     --disable-tecio 

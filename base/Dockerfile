@@ -5,7 +5,7 @@ WORKDIR /tmp
 # Global dependencies
 RUN apt-get update -qq --fix-missing \
  && apt-get install -qqy --no-install-recommends \
-    ca-certificates wget bzip2 \
+    ca-certificates wget bzip2 less locate \
  && apt-get purge --auto-remove -qqy \
  && rm -rf /var/lib/apt/lists/*
 
