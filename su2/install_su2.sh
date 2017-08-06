@@ -22,8 +22,7 @@ rm v$VERSION.tar.gz
 mv SU2* SU2 
 
 # Create and activate environment for SU2
-conda create -qqy --name su2 python=2.7 numpy scipy mpi4py
-source activate su2
+conda install -qqy numpy scipy mpi4py
 echo "CONDA_PREFIX: $CONDA_PREFIX"
 
 # Configure and build SU2
@@ -76,6 +75,3 @@ rm -rf /var/lib/apt/lists/*
 
 # conda cleanup
 conda clean -t
-
-# deactivate enviromnent
-source deactivate

@@ -3,7 +3,7 @@ ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 WORKDIR /tmp
 
 # Install SU2 (with its own py2 enviroment)
-ARG RUN_REGRESSION
+#ARG RUN_REGRESSION
 ENV SU2_RUN /usr/local/bin
 ENV SU2_HOME /opt/su2
 ENV PATH $PATH:$SU2_RUN
