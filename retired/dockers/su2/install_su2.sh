@@ -16,8 +16,8 @@ apt-get install -qqy --no-install-recommends \
     liblapack-dev liblapacke-dev libopenblas-dev
 
 # Create and activate environment for SU2
-conda install -qqy mpi4py
-conda install -qqy numpy scipy
+conda install -y mpi4py
+conda install -y numpy scipy
 echo "CONDA_PREFIX: $CONDA_PREFIX"
 
 # Download and untar
