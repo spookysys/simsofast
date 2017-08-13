@@ -15,8 +15,4 @@ wget -q https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O
 sudo bash miniconda.sh -b -p /opt/conda
 rm miniconda.sh
 
-# Install conda packages
-conda install -qy mpi4py
-conda install -qy petsc petsc4py
-conda install -qy numpy scipy sympy matplotlib 
-
+conda config --add channels conda-forge dlr-sc bryanwweber
